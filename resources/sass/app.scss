@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,900&display=swap");
+
+
+@import "~toastr/toastr";
+@import "~@vueform/multiselect/themes/default.scss";
+@import "../src/sass/style.scss";
+@import "../src/webpack/plugins/plugins.scss";
+
+body {
+    font-size: 13px !important;
+}
+
+
+
+.modal-header {
+    border-bottom: 1px solid rgb(60 60 60 / 4%) !important;
+}
+
+.modal-footer {
+    border-top: 1px solid rgb(60 60 60 / 4%) !important;
+}
+
+
+
+.form-control:focus {
+    color: #4b5563 !important;
+    background-color: #f9fafb !important;
+    border-color: $primary !important;
+    outline: 0 !important;
+    box-shadow: inset 0 1px 2px rgb(23 31 56 / 8%), 0 0 0 0.2rem rgb(36 46 76 / 25%) !important;
+}
+
+.th {
+    background-color: #F3F6F9 !important;
+    border-bottom: none !important;
+    font-size: 0.9rem !important;
+    padding: 1rem !important;
+}
+td{
+    vertical-align: middle !important;
+}
