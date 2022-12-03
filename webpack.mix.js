@@ -42,7 +42,9 @@ mix.sass(
 mix.js(
     ["resources/src/webpack/scripts.js", "resources/js/app.js"],
     'public/js/app.js'
-);
+).postCss("resources/css/app.css", "public/css/tailwind.css", [
+    require("tailwindcss"),
+]);
 
 // Build custom 3rd party plugins
 (glob.sync("resources/src/plugins/custom/**/*.js") || []).forEach((file) => {
@@ -260,5 +262,5 @@ if (mix.inProduction()) {
 
 // mix.browserSync("http://127.0.0.1:8000");
 
-mix.copy('vendor/proengsoft/laravel-jsvalidation/resources/views', 'resources/views/vendor/jsvalidation')
-    .copy('vendor/proengsoft/laravel-jsvalidation/public', 'public/vendor/jsvalidation');
+// mix.copy('vendor/proengsoft/laravel-jsvalidation/resources/views', 'resources/views/vendor/jsvalidation')
+//     .copy('vendor/proengsoft/laravel-jsvalidation/public', 'public/vendor/jsvalidation');
