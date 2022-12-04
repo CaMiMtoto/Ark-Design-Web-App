@@ -83,7 +83,7 @@
                     </a>
                 </div>
                 <div class="menu-item mb-1">
-                    <a class="menu-link nav-services" href="{{ route('admin.events.index') }}">
+                    <a class="menu-link nav-services" href="{{ route('admin.services.index') }}">
                         <span class="menu-icon">
                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                               stroke="currentColor" class="w-6 h-6">

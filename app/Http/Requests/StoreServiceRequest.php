@@ -13,7 +13,7 @@ class StoreServiceRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -24,7 +24,17 @@ class StoreServiceRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'service_type_id' => ['required', 'integer', 'exists:service_types,id'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Service name is required',
+            'service_type_id.required' => 'Service type is required',
+            'service_type_id.exists' => 'Service type is invalid',
         ];
     }
 }

@@ -10,6 +10,7 @@ class Event extends Model
 {
     use HasFactory;
     protected $appends = ['image_url'];
+    protected $dates = ['date'];
 
     public function getImageUrlAttribute(): string
     {

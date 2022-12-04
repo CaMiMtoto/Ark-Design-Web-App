@@ -6,13 +6,16 @@ use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\ProjectType;
+use Exception;
+use Illuminate\Http\Request;
+use Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProjectController extends Controller
 {
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function index()
     {
@@ -26,6 +29,7 @@ class ProjectController extends Controller
                                 Options
                               </button>
                               <ul class="dropdown-menu">
+                                <li><a class="dropdown-item js-images" data-images-url="'.route('admin.projects.images',$row->id).'" href="' . route('admin.projects.images.store', $row->id) . '">Images</a></li>
                                 <li><a class="dropdown-item js-edit" href="' . route('admin.projects.show', $row->id) . '">Edit</a></li>
                                 <li><a class="dropdown-item js-delete" href="' . route('admin.projects.destroy', $row->id) . '">Delete</a></li>
                               </ul>
@@ -37,12 +41,6 @@ class ProjectController extends Controller
         return view('admin.projects', [
             'types' => ProjectType::all()
         ]);
-    }
-
-
-    public function create()
-    {
-        //
     }
 
 
@@ -71,5 +69,43 @@ class ProjectController extends Controller
     {
         $project->delete();
         return response()->json(['success' => 'Project deleted successfully.']);
+    }
+
+    public function storeImages(Project $project, Request $request)
+    {
+        if ($request->hasFile('filepond')) {
+            $dir = 'public/projects/images/';
+            $file = $request->file('filepond');
+            $path = $file->store($dir);
+            $project->images()->create([
+                'file_name' => str_replace($dir, '', $path)
+            ]);
+            return response()->json(['success' => 'Image uploaded successfully.']);
+        }
+        return response()->json(['error' => 'Image upload failed.'], 400);
+    }
+
+    public function destroyImage(Project $project, Request $request)
+    {
+        $image = $project->images()->find($request->input('id'));
+        if ($image) {
+            $fileName = $image->file_name;
+            $image->delete();
+            $path = "public/projects/images/" . $fileName;
+            if (Storage::exists($path)) {
+                Storage::delete($path);
+            }
+            return response()->json(['success' => 'Image deleted successfully.']);
+        }
+        return response()->json(['error' => 'Image delete failed.'], 400);
+    }
+
+    public function images(Project $project)
+    {
+        $images = $project->images;
+        return view('admin._images', [
+            'images' => $images,
+            'project' => $project
+        ]);
     }
 }

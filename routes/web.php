@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -18,13 +20,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/events', [HomeController::class, 'events'])->name('events');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth', 'prefix' => '/admin', 'as' => 'admin.'], function () {
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
@@ -33,6 +34,9 @@ Route::group(['middleware' => 'auth', 'prefix' => '/admin', 'as' => 'admin.'], f
     Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
     Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+    Route::post('/projects/{project}/images', [ProjectController::class, 'storeImages'])->name('projects.images.store');
+    Route::delete('/projects/images/{image}/destroy', [ProjectController::class, 'destroyImage'])->name('projects.images.destroy');
+    Route::get('/projects/{project}/images', [ProjectController::class, 'images'])->name('projects.images');
 
 
     Route::get('/events', [EventController::class, 'index'])->name('events.index');
@@ -54,5 +58,8 @@ Route::group(['middleware' => 'auth', 'prefix' => '/admin', 'as' => 'admin.'], f
     Route::get('/teams/{team}', [TeamController::class, 'show'])->name('teams.show');
     Route::delete('/teams/{team}', [TeamController::class, 'destroy'])->name('teams.destroy');
 
-
+    Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+    Route::post('/services', [ServiceController::class, 'store'])->name('services.store');
+    Route::get('/services/{service}', [ServiceController::class, 'show'])->name('services.show');
+    Route::delete('/services/{service}', [ServiceController::class, 'destroy'])->name('services.destroy');
 });

@@ -15,6 +15,8 @@ import flatpickr from 'flatpickr';
 
 window.toastr = require('toastr/toastr');
 
+// import Dropzone from "dropzone";
+
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

@@ -1,32 +1,24 @@
 @extends('layouts.master')
-@section('title',"Projects")
+@section('title',"Services")
 @section('navigation')
-    <li class="breadcrumb-item text-dark">Projects</li>
-@endsection
-@section('styles')
-    {{--    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />--}}
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" media="screen"
-          href="https://unpkg.com/filepond-plugin-image-preview@4.6.4/dist/filepond-plugin-image-preview.min.css"/>
-
+    <li class="breadcrumb-item text-dark">Services</li>
 @endsection
 
 @section('content')
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4>Manage projects</h4>
+                <h4>Manage services</h4>
                 <button class="btn btn-sm btn-primary" type="button" id="addBtn">
-                    Add Project
+                    Add Service
                 </button>
             </div>
-        <div class="table-responsive">
+           <div class="table-responsive">
             <table id="kt_datatable_example_1" class="table table-row-bordered gy-5">
                 <thead>
                 <tr class="fw-bold fs-6 text-muted">
                     <th>Name</th>
                     <th>Type</th>
-                    <th>Location</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -35,7 +27,7 @@
                 </tbody>
 
             </table>
-        </div>
+           </div>
         </div>
     </div>
 
@@ -43,12 +35,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Project</h5>
+                    <h5 class="modal-title">Service</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
                 </div>
 
-                <form action="{{ route('admin.projects.store') }}" method="post" id="submitForm">
+                <form action="{{ route('admin.services.store') }}" method="post" id="submitForm">
                     @csrf
                     <input type="hidden" id="id" name="id" value="0"/>
                     <div class="modal-body">
@@ -58,7 +50,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="type" class="form-label">Type</label>
-                            <select class="form-select" id="type" name="project_type_id">
+                            <select class="form-select" id="type" name="service_type_id">
                                 <option value="">
                                     Select Type
                                 </option>
@@ -67,14 +59,11 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="location" class="form-label">Location</label>
-                            <input type="text" class="form-control" id="location" name="location"/>
-                        </div>
-                        <div class="mb-3">
+                      
+                     {{--    <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
                             <textarea class="form-control" id="description" name="description"></textarea>
-                        </div>
+                        </div> --}}
 
                     </div>
 
@@ -83,26 +72,6 @@
                         <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Close</button>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" tabindex="-1" id="imagesModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Images</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
-                </div>
-
-                <div class="modal-body">
-                    <input type="file" class="my-pond" name="filepond"/>
-
-                    <div id="imagesResult"></div>
-
-                </div>
-
-
             </div>
         </div>
     </div>
@@ -116,48 +85,19 @@
     <!-- Laravel Javascript Validation -->
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.min.js')}}"></script>
 
-    {!! JsValidator::formRequest(\App\Http\Requests\StoreProjectRequest::class) !!}
-    {{--    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>--}}
-
-    <!-- include FilePond library -->
-    <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
-
-    <!-- include FilePond plugins -->
-    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
-
-    <!-- include FilePond jQuery adapter -->
-    <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
-
+    {!! JsValidator::formRequest(\App\Http\Requests\StoreServiceRequest::class) !!}
     <script>
         $(document).ready(function () {
-            // First register any plugins
-            $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
-            /*  $.fn.filepond.registerPlugin(FilePondPluginFileValidateSize);
-
-              $.fn.filepond.setDefaults({
-                  maxFileSize: '3MB',
-              });*/
-            // Turn input element into a pond
-            $('.my-pond').filepond();
-
-            // Set allowMultiple property to true
-            $('.my-pond').filepond('allowMultiple', true);
-
-            // Listen for addfile event
-            $('.my-pond').on('FilePond:addfile', function (e) {
-                console.log('file added event', e);
-            });
 
 
-            $('.nav-projects').addClass('active');
+            $('.nav-services').addClass('active');
             let dt = $('#kt_datatable_example_1').DataTable({
                 responsive: true,
                 "order": [[0, "desc"]],
-                "ajax": "{{route('admin.projects.index')}}",
+                "ajax": "{{route('admin.services.index')}}",
                 "columns": [
                     {data: 'name', name: 'name'},
-                    {data: 'project_type.name', name: 'projectType.name'},
-                    {data: 'location', name: 'location'},
+                    {data: 'service_type.name', name: 'serviceType.name'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ],
                 processing: true,
@@ -190,7 +130,7 @@
                         Swal.fire({
                             icon: 'success',
                             title: 'Success',
-                            text: "Project saved successfully",
+                            text: "Service saved successfully",
                         });
                     },
                     error: function (error) {
@@ -218,7 +158,7 @@
                     success: function (response) {
                         $('#id').val(response.id);
                         $('#name').val(response.name);
-                        $('#type').val(response.project_type_id);
+                        $('#type').val(response.service_type_id);
                         $('#location').val(response.location);
                         $('#description').val(response.description);
                         $('#addModal').modal('show');
@@ -237,7 +177,7 @@
                 let href = $(this).attr('href');
                 e.preventDefault();
                 Swal.fire({
-                    title: 'Are you sure you want to delete this project?',
+                    title: 'Are you sure you want to delete this service?',
                     text: "You won't be able to revert this!",
                     showCancelButton: true,
                     confirmButtonText: `Delete`,
@@ -256,7 +196,7 @@
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Success',
-                                    text: "Project deleted successfully",
+                                    text: "Service deleted successfully",
                                 });
                             },
                             error: function (error) {
@@ -270,46 +210,7 @@
                     }
                 });
             });
-
-            $(document).on('click', '.js-images', function (e) {
-                let href = $(this).attr('href');
-                e.preventDefault();
-                let imageUrl = $(this).data("images-url");
-                $.ajax({
-                    url: href,
-                    method: 'get',
-                    success: function (response) {
-                        $('#imagesResult').html(response);
-                        $('#imagesModal').modal('show');
-                    },
-                    error: function (error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: "Something went wrong!",
-                        });
-                    },
-                });
-
-                FilePond.setOptions({
-                    server: {
-                        url: href,
-                        method: 'POST',
-                        process: {
-                            ondata: (formData) => {
-                                formData.append('_token', "{{csrf_token()}}");
-                                return formData;
-                            }
-                        }
-                    },
-
-                });
-                // $('#imagesModal').modal('show');
-
-            });
         });
-
-
     </script>
 
 @endsection
