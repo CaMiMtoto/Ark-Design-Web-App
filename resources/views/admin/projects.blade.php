@@ -138,13 +138,14 @@
                   maxFileSize: '3MB',
               });*/
             // Turn input element into a pond
-            $('.my-pond').filepond();
+            let $my = $('.my-pond');
+            $my.filepond();
 
             // Set allowMultiple property to true
-            $('.my-pond').filepond('allowMultiple', true);
+            $my.filepond('allowMultiple', true);
 
             // Listen for addfile event
-            $('.my-pond').on('FilePond:addfile', function (e) {
+            $my.on('FilePond:addfile', function (e) {
                 console.log('file added event', e);
             });
 
