@@ -4,8 +4,7 @@
     <li class="breadcrumb-item text-dark">Projects</li>
 @endsection
 @section('styles')
-    {{--    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />--}}
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen"
           href="https://unpkg.com/filepond-plugin-image-preview@4.6.4/dist/filepond-plugin-image-preview.min.css"/>
 
@@ -21,7 +20,7 @@
                 </button>
             </div>
         <div class="table-responsive">
-            <table id="kt_datatable_example_1" class="table table-row-bordered gy-5">
+            <table id="kt_datatable_example_1" class="table table-row-dashed gy-1">
                 <thead>
                 <tr class="fw-bold fs-6 text-muted">
                     <th>Name</th>
@@ -30,9 +29,6 @@
                     <th></th>
                 </tr>
                 </thead>
-                <tbody>
-
-                </tbody>
 
             </table>
         </div>
@@ -107,9 +103,7 @@
         </div>
     </div>
 @endsection
-@section('styles')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
-@endsection
+
 @section('scripts')
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>

@@ -16,9 +16,9 @@
 </head>
 <body class="min-vh-100 d-flex justify-content-between">
 <div>
-    <nav class="navbar navbar-expand-lg bg-warning navbar-dark">
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{ url('/') }}">
                 <img src="{{ asset('images/logo.jpg') }}" class="h-50px rounded-circle" alt="">
                 <span class="h4"> Ark Design</span>
             </a>
@@ -30,19 +30,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link " href="{{ url('/') }}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Projects</a>
+                        <a class="nav-link" href="{{ route('projects') }}">Projects</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('events') }}">Events & News</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact Us</a>
+                        <a class="nav-link" href="{{ url('/') }}#contact-us">Contact Us</a>
                     </li>
 
                 </ul>

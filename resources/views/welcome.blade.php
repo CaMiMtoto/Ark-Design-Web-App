@@ -23,18 +23,18 @@
                                         projects
                                         with a flavor of professionalism.</p>
                                     <div class="d-flex justify-content-center align-items-center gap-3">
-                                        <button type="button"
-                                                class="btn text-white border text-uppercase border-4 rounded-pill btn-lg btn-outline-warning">
+                                        <a href="#team"
+                                           class="btn text-white border text-uppercase border-4 rounded-pill btn-lg btn-outline-primary">
                                             Our Team
-                                        </button>
-                                        <button type="button"
-                                                class="btn text-white border text-uppercase border-4 rounded-pill btn-lg btn-outline-warning">
+                                        </a>
+                                        <a href="{{ route('projects') }}"
+                                           class="btn text-white border text-uppercase border-4 rounded-pill btn-lg btn-outline-primary">
                                             Our Projects
-                                        </button>
-                                        <button type="button"
-                                                class="btn text-white border text-uppercase border-4 rounded-pill btn-lg btn-outline-warning">
+                                        </a>
+                                        <a href="#contact-us"
+                                           class="btn text-white border text-uppercase border-4 rounded-pill btn-lg btn-outline-primary">
                                             Contact us
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -49,16 +49,16 @@
 
         <div class="tw-flex tw-justify-center tw-items-center tw-flex-col my-10">
             <h4 class="display-6 text-center">Our Services</h4>
-            <div class="border-top border-warning border-3 tw-w-20 mb-3"></div>
+            <div class="border-top border-primary border-3 tw-w-20 mb-3"></div>
         </div>
         <div class="row">
             @foreach($serviceTypes as $item)
                 <div class="col-lg-4 mb-4">
                     <div class="card h-100  tw-rounded-xl border">
                         <div class="card-body py-10 text-center tw-flex tw-justify-start tw-flex-col tw-items-center">
-                            <span class="svg-icon svg-icon-3x text-warning mt-10">{!! $item->icon !!} </span>
+                            <span class="svg-icon svg-icon-3x text-primary mt-10">{!! $item->icon !!} </span>
                             <h2 class="mt-10">{{ $item->name }}</h2>
-                            <div class="border-top border-warning border-3 tw-w-20 mb-10"></div>
+                            <div class="border-top border-primary border-3 tw-w-20 mb-10"></div>
                             @foreach($item->services as $service)
                                 <p>{{$service->name}}</p>
                             @endforeach
@@ -86,7 +86,7 @@
                     </div>
 
                     <div class="d-flex">
-                        <span class="svg-icon svg-icon-2x text-warning">
+                        <span class="svg-icon svg-icon-2x text-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                  class="w-6 h-6">
                                 <path d="M10.5 18.75a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"/>
@@ -103,7 +103,7 @@
                     </div>
 
                     <div class="d-flex">
-                        <span class="svg-icon svg-icon-2x text-warning">
+                        <span class="svg-icon svg-icon-2x text-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                  class="w-6 h-6">
                                 <path
@@ -121,7 +121,7 @@
 
 
                     <div class="d-flex">
-                        <span class="svg-icon svg-icon-2x text-warning">
+                        <span class="svg-icon svg-icon-2x text-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                  class="w-6 h-6">
                                 <path fill-rule="evenodd"
@@ -148,7 +148,7 @@
              style="background-image:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.7)), url({{ asset('images/video.png') }});">
         <div class="d-flex flex-column justify-content-center align-items-center">
             <a href="https://www.youtube.com/watch?v=t0cST2ICibs" target="_blank"
-               class="d-block tw-h-20 tw-w-20 my-10 popup-youtube bg-warning rounded-circle d-flex justify-content-center align-items-center">
+               class="d-block tw-h-20 tw-w-20 my-10 popup-youtube bg-primary rounded-circle d-flex justify-content-center align-items-center">
             <span class="svg-icon svg-icon-3x text-white">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
   <path fill-rule="evenodd"
@@ -169,7 +169,7 @@
     <section class="container-fluid" id="team">
         <div class="tw-flex tw-justify-center tw-items-center tw-flex-col my-10">
             <h2 class="display-5 fw-light">Our Team</h2>
-            <div class="border-top border-warning border-3 tw-w-20 mb-3"></div>
+            <div class="border-top border-primary border-3 tw-w-20 mb-3"></div>
         </div>
         <div class="team">
 
@@ -228,37 +228,45 @@
         <div class="container">
             <div class="tw-flex tw-justify-center tw-items-center tw-flex-col my-10">
                 <h2 class="display-5 fw-light">Interested?</h2>
-                <div class="border-top border-warning border-3 tw-w-20 mb-3"></div>
+                <div class="border-top border-primary border-3 tw-w-20 mb-3"></div>
                 <p class="text">Let us call you for a quick advice on your plot</p>
             </div>
 
 
-            <div class="row">
+            <div class="row" id="contact-us">
                 <div class="col-md-6">
                     <h1 class="fw-light mb-3">Send Inquiry Here</h1>
-                    <form action="">
+                    <div class="my-4 alert alert-success" id="thankYou" style="display: none">
+                        Thank you for your inquiry. We will get back to you shortly.
+                    </div>
+                    <form action="{{ route('inquiry.save') }}" method="post" id="submitForm">
+                        @csrf
                         <div class="mb-3">
-                            <input type="text"
+                            <label for="name" class="sr-only">Name</label>
+                            <input type="text" id="name" name="name"
                                    class="form-control rounded-0 border-0 border-bottom border-secondary shadow-none focus:tw-border-2 focus:tw-border-b-yellow-500  focus:tw-shadow-none"
                                    placeholder="Name" required>
                         </div>
                         <div class="mb-3">
-                            <input type="text"
+                            <label for="upi" class="sr-only">UPI</label>
+                            <input type="text" id="upi" name="upi"
                                    class="form-control rounded-0 border-0 border-bottom border-secondary shadow-none focus:tw-border-2 focus:tw-border-b-yellow-500  focus:tw-shadow-none"
                                    placeholder="Plot UPI number">
                         </div>
                         <div class="mb-3">
-                            <input type="text"
+                            <label for="phone" class="sr-only">Phone</label>
+                            <input type="text" name="phone" id="phone"
                                    class="form-control rounded-0 border-0 border-bottom border-secondary shadow-none focus:tw-border-2 focus:tw-border-b-yellow-500  focus:tw-shadow-none"
                                    placeholder="Phone number" required>
                         </div>
                         <div class="mb-3">
-                        <textarea name=""
-                                  class="form-control rounded-0 border-0 border-bottom border-secondary shadow-none focus:tw-border-2 focus:tw-border-b-yellow-500  focus:tw-shadow-none"
-                                  id="" rows="6" placeholder="Write inquiry here..."></textarea>
+                            <label for="message" class="sr-only">Message</label>
+                            <textarea name="message"
+                                      class="form-control rounded-0 border-0 border-bottom border-secondary shadow-none focus:tw-border-2 focus:tw-border-b-yellow-500  focus:tw-shadow-none"
+                                      id="message" rows="6" placeholder="Write inquiry here..."></textarea>
                         </div>
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-warning rounded-pill">
+                            <button type="submit" class="btn btn-primary rounded-pill">
                            <span class="svg-icon">
                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -335,10 +343,11 @@
     <!--JQuery-->
 
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
     <!--Custom js-->
-
     <script src="{{ asset('js/popup.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.min.js')}}"></script>
+    {!! JsValidator::formRequest(\App\Http\Requests\StoreInquiryRequest::class) !!}
+
     <script>
         $('.popup-youtube').magnificPopup({
             disableOn: 700,
@@ -422,6 +431,52 @@
                 // settings: "unslick"
                 // instead of a settings object
             ]
+        });
+
+        $('#submitForm').on('submit', function (e) {
+            e.preventDefault();
+            let form = $(this);
+            if (!form.valid()) {
+                return false;
+            }
+            let btn = form.find('button[type="submit"]');
+            btn.attr('disabled', true);
+            // add spinner to button
+            btn.prepend(
+                '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>'
+            );
+            let data = form.serialize();
+            let $thankYou = $('#thankYou');
+            $.ajax({
+                url: form.attr('action'),
+                type: 'POST',
+                data: data,
+                success: function (response) {
+                    form[0].reset();
+
+                    $thankYou
+                        .removeClass('alert-danger')
+                        .addClass('alert-success')
+                        .text(response.message)
+                        .show();
+
+                },
+                complete: function () {
+                    btn.find('.spinner-border').remove();
+                    btn.attr('disabled', false);
+                },
+                error: function (error) {
+
+                    $thankYou
+                        .removeClass('alert-success')
+                        .addClass('alert-danger')
+                        .text("Something went wrong, please try again later")
+                        .show();
+                    setTimeout(function () {
+                        $thankYou.hide();
+                    }, 5000);
+                }
+            });
         });
     </script>
 @endsection

@@ -55,3 +55,19 @@ td {
 .team-img:hover .social-icons {
     opacity: 1;
 }
+
+.btn-xs:not(.btn-icon) {
+    font-size: .75rem;
+    padding: 0.3125rem 0.75rem;
+}
+.btn-soft-secondary {
+    color: #71869d;
+    background-color: rgba(113,134,157,.1);
+    border-color: transparent;
+}
+
+.btn-check:focus+.btn-soft-secondary, .btn-soft-secondary:focus, .btn-soft-secondary:hover {
+    color: #fff;
+    background-color: #71869d;
+    border-color: transparent;
+}

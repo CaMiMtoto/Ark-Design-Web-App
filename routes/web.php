@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InquiriesController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ServiceController;
@@ -22,6 +23,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/events', [HomeController::class, 'events'])->name('events');
+Route::get('/projects', [HomeController::class, 'projects'])->name('projects');
+Route::get('/projects/{project}', [HomeController::class, 'projectDetails'])->name('project-details');
+Route::post('/inquiry', [HomeController::class, 'saveInquiry'])->name('inquiry.save');
 
 Auth::routes();
 
@@ -62,4 +66,7 @@ Route::group(['middleware' => 'auth', 'prefix' => '/admin', 'as' => 'admin.'], f
     Route::post('/services', [ServiceController::class, 'store'])->name('services.store');
     Route::get('/services/{service}', [ServiceController::class, 'show'])->name('services.show');
     Route::delete('/services/{service}', [ServiceController::class, 'destroy'])->name('services.destroy');
+
+    Route::get('/inquiries', [InquiriesController::class, 'index'])->name('inquiries.index');
+    Route::delete('/inquiries/{inquiry}', [InquiriesController::class, 'destroy'])->name('inquiries.destroy');
 });
