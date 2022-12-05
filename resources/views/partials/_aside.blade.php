@@ -141,10 +141,7 @@
                     </div>
                 </div>
                 <div class="menu-item mb-1">
-                    <a class="menu-link" href="{{ route('admin.inquiries.index') }}"
-                       title="Check out over 200 in-house components, plugins and ready for use solutions"
-                       data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click"
-                       data-bs-placement="right">
+                    <a class="menu-link nav-inquiries" href="{{ route('admin.inquiries.index') }}">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotone/Layout/Layout-arrange.svg-->
 											<span class="svg-icon svg-icon-2">

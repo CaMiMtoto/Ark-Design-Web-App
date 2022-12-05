@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inquiry;
+use Exception;
 use Illuminate\Http\Request;
 
 class InquiriesController extends Controller
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function index()
     {
@@ -16,10 +17,7 @@ class InquiriesController extends Controller
         if (request()->ajax()) {
             return datatables()->of($data)
                 ->addColumn("action", function ($data) {
-                    $button = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editInquiry">Edit</a>';
-                    $button .= '&nbsp;&nbsp;';
-                    $button .= '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteInquiry">Delete</a>';
-                    return $button;
+                    return '<a href="'.route('admin.inquiries.destroy',$data->id).'" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Delete" class="btn btn-light-danger btn-sm btn-icon rounded-circle js-delete"><i class="bi bi-trash"></i></a>';
                 })
                 ->rawColumns(['action'])
                 ->make(true);

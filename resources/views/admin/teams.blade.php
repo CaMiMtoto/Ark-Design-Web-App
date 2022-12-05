@@ -59,6 +59,27 @@
                             <input type="text" class="form-control" id="position" name="position"/>
                         </div>
 
+                        <div class="mb-3">
+                            <label for="facebook" class="form-label">Facebook</label>
+                            <input type="url" class="form-control" id="facebook" name="facebook"/>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="twitter" class="form-label">Twitter</label>
+                            <input type="url" class="form-control" id="twitter" name="twitter"/>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="instagram" class="form-label">Instagram</label>
+                            <input type="url" class="form-control" id="instagram" name="instagram"/>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="linkedin" class="form-label">Linkedin</label>
+                            <input type="url" class="form-control" id="linkedin" name="linkedin"/>
+                        </div>
+
+
                     </div>
 
                     <div class="modal-footer">

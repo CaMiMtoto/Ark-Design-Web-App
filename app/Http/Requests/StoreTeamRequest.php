@@ -11,7 +11,7 @@ class StoreTeamRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return auth()->check();
     }
@@ -27,10 +27,14 @@ class StoreTeamRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'position' => ['required', 'string', 'max:255'],
             'image' => ['required_if:id,0', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'facebook' => ['nullable', 'string', 'max:255', 'url', 'starts_with:https://www.facebook.com/'],
+            'twitter' => ['nullable', 'string', 'max:255', 'url', 'starts_with:https://twitter.com/'],
+            'instagram' => ['nullable', 'string', 'max:255', 'url', 'starts_with:https://www.instagram.com/'],
+            'linkedin' => ['nullable', 'string', 'max:255', 'url', 'starts_with:https://www.linkedin.com/'],
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'name.required' => 'Name is required',
@@ -39,6 +43,7 @@ class StoreTeamRequest extends FormRequest
             'image.image' => 'Image must be an image',
             'image.mimes' => 'Image must be a file of type: jpg, jpeg, png, webp',
             'image.max' => 'Image may not be greater than 2048 kilobytes',
+
         ];
     }
 }
