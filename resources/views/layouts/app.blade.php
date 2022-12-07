@@ -10,9 +10,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Ark Design') }}</title>
+    @yield('styles')
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}">
-    @yield('styles')
+  
 </head>
 <body class="min-vh-100 d-flex justify-content-between">
 <div>
@@ -33,7 +34,7 @@
                         <a class="nav-link text-dark fw-bold  " href="{{ url('/') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold " href="#">About Us</a>
+                        <a class="nav-link text-dark fw-bold " href="{{ route('about') }}">About Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark fw-bold " href="{{ route('projects') }}">Projects</a>

@@ -252,6 +252,7 @@ mix
                 /^badge-/,
                 /^multiselect-/,
                 /^custom-/,
+                /^slick-/,
             ]
         },
     });

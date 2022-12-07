@@ -26,6 +26,7 @@ Route::get('/events', [HomeController::class, 'events'])->name('events');
 Route::get('/projects', [HomeController::class, 'projects'])->name('projects');
 Route::get('/projects/{project}', [HomeController::class, 'projectDetails'])->name('project-details');
 Route::post('/inquiry', [HomeController::class, 'saveInquiry'])->name('inquiry.save');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
 
 Auth::routes();
 

@@ -33,7 +33,7 @@
     </div>
 
     <div class="modal fade" tabindex="-1" id="addModal">
-        <div class="modal-dialog ">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Team</h5>
@@ -46,37 +46,61 @@
                     @csrf
                     <input type="hidden" id="id" name="id" value="0"/>
                     <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name"/>
-                        </div>
-                        <div class="mb-3">
-                            <label for="image" class="form-label">Image</label>
-                            <input type="file" class="form-control" id="image" name="image">
-                        </div>
-                        <div class="mb-3">
-                            <label for="position" class="form-label">Position</label>
-                            <input type="text" class="form-control" id="position" name="position"/>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="facebook" class="form-label">Facebook</label>
-                            <input type="url" class="form-control" id="facebook" name="facebook"/>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Image</label>
+                                    <input type="file" class="form-control" id="image" name="image">
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="twitter" class="form-label">Twitter</label>
-                            <input type="url" class="form-control" id="twitter" name="twitter"/>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="position" class="form-label">Position</label>
+                                    <input type="text" class="form-control" id="position" name="position"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="facebook" class="form-label">Facebook</label>
+                                    <input type="url" class="form-control" id="facebook" name="facebook"/>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="instagram" class="form-label">Instagram</label>
-                            <input type="url" class="form-control" id="instagram" name="instagram"/>
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="mb-3">
+                                    <label for="twitter" class="form-label">Twitter</label>
+                                    <input type="url" class="form-control" id="twitter" name="twitter"/>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="instagram" class="form-label">Instagram</label>
+                                    <input type="url" class="form-control" id="instagram" name="instagram"/>
+                                </div>
+                            </div>
                         </div>
+
 
                         <div class="mb-3">
                             <label for="linkedin" class="form-label">Linkedin</label>
                             <input type="url" class="form-control" id="linkedin" name="linkedin"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="bio" class="form-label">Bio</label>
+                            <textarea class="form-control" id="bio" name="bio"></textarea>
                         </div>
 
 
@@ -189,6 +213,11 @@
                         $('#id').val(response.id);
                         $('#name').val(response.name);
                         $('#position').val(response.position);
+                        $('#facebook').val(response.facebook);
+                        $('#twitter').val(response.twitter);
+                        $('#instagram').val(response.instagram);
+                        $('#linkedin').val(response.linkedin);
+                        $('#bio').val(response.bio);
                         $('#addModal').modal('show');
                     },
                     error: function (error) {

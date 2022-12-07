@@ -45,7 +45,7 @@
 
         </div>
     </div>
-    <div class="container">
+    <div class="container mt-10">
 
         <div class="tw-flex tw-justify-center tw-items-center tw-flex-col my-10">
             <h4 class="display-6 text-center">Our Services</h4>
@@ -242,6 +242,24 @@
                         <h3 class="fw-normal">{{ $item->name }}</h3>
                         <span class="text-muted fw-light">{{ $item->position }}</span>
                     </div>
+                    @if($item->bio)
+                        <div class="accordion rounded-3" id="accordionFAQ">
+                            <!-- Accordion Item -->
+                            <div class="accordion-item ">
+                                <div class="accordion-header" id="headingOne">
+                                    <a class="accordion-button text-decoration-none tw-text-lg shadow-none collapsed py-2 fw-bold" role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $item->id}}" aria-expanded="false" aria-controls="collapseOne">
+                                        Read Bio
+                                    </a>
+                                </div>
+                                <div id="collapse{{ $item->id}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionFAQ" style="">
+                                    <div class="accordion-body">
+                                    {{ $item->bio }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Accordion Item -->
+                        </div>
+                    @endif
                 </div>
 
             @endforeach
@@ -388,6 +406,7 @@
             dots: true,
             infinite: true,
             autoplay: true,
+            arrows:false,
             speed: 300,
             slidesToShow: 4,
             slidesToScroll: 4,
