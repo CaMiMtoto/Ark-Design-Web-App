@@ -1,12 +1,11 @@
-const mix = require('laravel-mix');
-const path = require('path');
-require('laravel-mix-purgecss');
+const mix = require("laravel-mix");
+const path = require("path");
+require("laravel-mix-purgecss");
 
 const glob = require("glob");
 const ReplaceInFileWebpackPlugin = require("replace-in-file-webpack-plugin");
 const rimraf = require("rimraf");
 const del = require("del");
-
 
 // Remove existing generated assets from public folder
 del.sync([
@@ -17,22 +16,19 @@ del.sync([
 ]);
 
 // Build 3rd party plugins css/js
-mix.sass(
-    'resources/sass/app.scss',
-    'public/css',
-    {
-        sassOptions: {includePaths: ["node_modules"]},
-    }
-).then(() => {
-    /*    // remove unused preprocessed fonts folder
+mix.sass("resources/sass/app.scss", "public/css", {
+    sassOptions: { includePaths: ["node_modules"] },
+})
+    .then(() => {
+        /*    // remove unused preprocessed fonts folder
         rimraf(path.resolve("public/assets/fonts"), () => {
         });
         rimraf(path.resolve("public/assets/images"), () => {
         });*/
-})
+    })
     .sourceMaps(!mix.inProduction())
     // .setResourceRoot('./')
-    .options({processCssUrls: false})
+    .options({ processCssUrls: false })
     .js(
         ["resources/src/webpack/plugins/plugins.js"],
         "public/assets/plugins/global/plugins.bundle.js"
@@ -41,7 +37,7 @@ mix.sass(
 // Build css/js
 mix.js(
     ["resources/src/webpack/scripts.js", "resources/js/app.js"],
-    'public/js/app.js'
+    "public/js/app.js"
 ).postCss("resources/css/app.css", "public/css/tailwind.css", [
     require("tailwindcss"),
 ]);
@@ -225,11 +221,10 @@ mix.styles(
 //     'node_modules/fullcalendar/main.min.css',
 // ], 'public/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css');
 
-
 mix
     // .extract()
     .vue()
-    .webpackConfig(require('./webpack.config'))
+    .webpackConfig(require("./webpack.config"))
     .purgeCss({
         safelist: {
             deep: [
@@ -253,7 +248,7 @@ mix
                 /^multiselect-/,
                 /^custom-/,
                 /^slick-/,
-            ]
+            ],
         },
     });
 
