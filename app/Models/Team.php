@@ -16,4 +16,20 @@ class Team extends Model
     {
         return Storage::url('public/teams/' . $this->image);
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
+
+    public function scopeInactive($query)
+    {
+        return $query->where('status', 'inactive');
+    }
+
+    public function scopeStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
 }

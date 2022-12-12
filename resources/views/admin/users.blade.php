@@ -13,22 +13,24 @@
                     Add User
                 </button>
             </div>
-            <table id="kt_datatable_example_1" class="table table-row-bordered gy-5">
-                <thead>
-                <tr class="fw-bold fs-6 text-muted">
-                    <th>Created At</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Status</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
+            <div class="table-responsive">
+                <table id="kt_datatable_example_1" class="table table-row-bordered gy-5">
+                    <thead>
+                    <tr class="fw-bold fs-6 text-muted">
+                        <th>Created At</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
-                </tbody>
+                    </tbody>
 
-            </table>
+                </table>
+            </div>
         </div>
     </div>
 

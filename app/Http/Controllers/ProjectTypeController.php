@@ -8,79 +8,54 @@ use App\Http\Requests\UpdateProjectTypeRequest;
 
 class ProjectTypeController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function index()
     {
-        //
+        if (request()->ajax()) {
+            return datatables()->of(ProjectType::latest()->get())
+                ->addColumn('action', function ($data) {
+                    $button = '<a href="' . route('admin.project-types.edit', $data->id) . '" name="edit"  class="edit btn btn-light-primary btn-sm btn-icon rounded-circle js-edit"><i class="bi bi-pencil-square"></i></a>';
+                    $button .= '&nbsp;&nbsp;';
+                    $button .= '<a href="' . route('admin.project-types.destroy', $data->id) . '"  class="delete btn btn-light-danger btn-sm js-delete btn-icon rounded-circle"><i class="bi bi-trash"></i></button>';
+                    return $button;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+
+        return view('admin.project_types');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreProjectTypeRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreProjectTypeRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $id = $request->input('id');
+
+        if ($id > 0) {
+            $projectType = ProjectType::find($id);
+            $projectType->update($validated);
+            return response()->json(['success' => 'Data is successfully updated']);
+        } else {
+            $projectType = ProjectType::create($validated);
+            return response()->json(['success' => 'Data is successfully added']);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ProjectType  $projectType
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(ProjectType $projectType)
     {
-        //
+        return $projectType;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ProjectType  $projectType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ProjectType $projectType)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateProjectTypeRequest  $request
-     * @param  \App\Models\ProjectType  $projectType
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateProjectTypeRequest $request, ProjectType $projectType)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ProjectType  $projectType
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(ProjectType $projectType)
     {
-        //
+        $projectType->delete();
+
+        return response()->json(['success' => 'Data is successfully deleted']);
     }
 }

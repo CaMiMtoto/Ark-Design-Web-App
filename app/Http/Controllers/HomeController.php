@@ -23,7 +23,7 @@ class HomeController extends Controller
     public function index()
     {
         $serviceTypes = ServiceType::with('services')->get();
-        $teams = Team::all();
+        $teams = Team::query()->active()->get();
         $images = [
             "Image8.png",
             "Image9.png",

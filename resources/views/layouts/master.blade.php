@@ -89,10 +89,10 @@
                         <!--begin::User-->
                         <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                             <!--begin::Menu wrapper-->
-                            <div class="cursor-pointer symbol symbol-circle symbol-30px symbol-md-40px"
+                            <div class="cursor-pointer symbol symbol-circle symbol-30px symbol-md-40px bg-light-primary p-2 text-uppercase text-primary h-40px w-40px d-flex justify-content-center align-items-center"
                                  data-kt-menu-trigger="click" data-kt-menu-attach="parent"
                                  data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
-                                <img alt="Pic" src="{{ asset('assets/media/avatars/150-1.jpg') }}"/>
+                                {{ \Str::limit(Auth::user()->name, 2, '') }}
                             </div>
                             <!--begin::Menu-->
                             <div
@@ -102,8 +102,8 @@
                                 <div class="menu-item px-3">
                                     <div class="menu-content d-flex align-items-center px-3">
                                         <!--begin::Avatar-->
-                                        <div class="symbol symbol-50px symbol-circle me-5">
-                                            <img alt="Logo" src="{{ asset('assets/media/avatars/150-1.jpg') }}"/>
+                                        <div class="symbol symbol-50px symbol-circle me-5 bg-light-primary p-2 text-uppercase text-primary h-40px w-40px d-flex justify-content-center align-items-center">
+                                            {{ \Str::limit(Auth::user()->name, 2, '') }}
                                         </div>
                                         <!--end::Avatar-->
                                         <!--begin::Username-->
@@ -125,34 +125,28 @@
                                 <!--end::Menu separator-->
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-5">
-                                    <a href="" class="menu-link px-5">Profile</a>
+                                    <a href="{{ route('admin.change-password') }}" class="menu-link px-5">
+                                        Change Password
+                                    </a>
                                 </div>
                                 <!--end::Menu item-->
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-5">
-                                    <a href="" class="menu-link px-5">
+                                    <a href="{{ route('admin.dashboard') }}" class="menu-link px-5">
                                         <span class="menu-text">Dashboard</span>
-                                        <span class="menu-badge">
-													<span
-                                                        class="badge badge-light-danger badge-circle fw-bolder fs-7">3</span>
-												</span>
+
                                     </a>
                                 </div>
                                 <!--end::Menu item-->
 
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-5">
-                                    <a href="#" class="menu-link px-5">Reports</a>
-                                </div>
+
                                 <!--end::Menu item-->
                                 <!--begin::Menu separator-->
                                 <div class="separator my-2"></div>
                                 <!--end::Menu separator-->
 
                                 <!--begin::Menu item-->
-                                <div class="menu-item px-5 my-1">
-                                    <a href="#" class="menu-link px-5">Account Settings</a>
-                                </div>
+
                                 <!--end::Menu item-->
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-5">

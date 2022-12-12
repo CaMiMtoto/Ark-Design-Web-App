@@ -20,6 +20,7 @@
                         <th></th>
                         <th>Name</th>
                         <th>Position</th>
+                        <th>Status</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -92,12 +93,26 @@
                                 </div>
                             </div>
                         </div>
-
-
-                        <div class="mb-3">
-                            <label for="linkedin" class="form-label">Linkedin</label>
-                            <input type="url" class="form-control" id="linkedin" name="linkedin"/>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="linkedin" class="form-label">Linkedin</label>
+                                    <input type="url" class="form-control" id="linkedin" name="linkedin"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">Status</label>
+                                    <select name="status" id="status" class="form-select">
+                                        <option value=""></option>
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
+
+
                         <div class="mb-3">
                             <label for="bio" class="form-label">Bio</label>
                             <textarea class="form-control" id="bio" name="bio"></textarea>
@@ -146,6 +161,12 @@
                     },
                     {data: 'name', name: 'name'},
                     {data: 'position', name: 'position'},
+                    {
+                        data: 'status', name: 'status',
+                        render: function (data, type, row) {
+                            return `<span class="badge rounded-pill badge-light-${row.status === 'active' ? 'success' : 'danger'}">${row.status}</span>`;
+                        }
+                    },
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ],
                 processing: true,
@@ -218,6 +239,7 @@
                         $('#instagram').val(response.instagram);
                         $('#linkedin').val(response.linkedin);
                         $('#bio').val(response.bio);
+                        $('#status').val(response.status);
                         $('#addModal').modal('show');
                     },
                     error: function (error) {

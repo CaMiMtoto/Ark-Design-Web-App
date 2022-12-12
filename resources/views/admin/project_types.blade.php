@@ -1,12 +1,13 @@
 @extends('layouts.master')
-@section('title',"Projects")
+
+@section('title', 'Project Types')
 @section('navigation')
-    <li class="breadcrumb-item text-dark">Projects</li>
+    <li class="breadcrumb-item text-dark">
+        Project Types
+    </li>
 @endsection
 @section('styles')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" media="screen"
-          href="https://unpkg.com/filepond-plugin-image-preview@4.6.4/dist/filepond-plugin-image-preview.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
 
 @endsection
 
@@ -14,24 +15,24 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4>Manage projects</h4>
-                <button class="btn btn-sm btn-primary" type="button" id="addBtn">
-                    Add Project
+                <h4>Project Types</h4>
+                <button type="button" id="addBtn" class="btn btn-primary btn-sm">
+                    Add New
                 </button>
             </div>
-        <div class="table-responsive ">
-            <table id="kt_datatable_example_1" class="table table-row-dashed gy-1">
-                <thead>
-                <tr class="fw-bold fs-6 text-muted">
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Location</th>
-                    <th></th>
-                </tr>
-                </thead>
+            <div class="table-responsive">
+                <table class="table table-row-dashed gy-1" id="dataTable">
+                    <thead>
+                    <tr class="fw-bold fs-6 text-muted">
+                        <th>Created At</th>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
 
-            </table>
-        </div>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -39,37 +40,18 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Project</h5>
+                    <h5 class="modal-title">Project Type</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
                 </div>
 
-                <form action="{{ route('admin.projects.store') }}" method="post" id="submitForm">
+                <form action="{{ route('admin.project-types.store') }}" method="post" id="submitForm">
                     @csrf
                     <input type="hidden" id="id" name="id" value="0"/>
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input type="text" class="form-control" id="name" name="name"/>
-                        </div>
-                        <div class="mb-3">
-                            <label for="type" class="form-label">Type</label>
-                            <select class="form-select" id="type" name="project_type_id">
-                                <option value="">
-                                    Select Type
-                                </option>
-                                @foreach($types as $type)
-                                    <option value="{{$type->id}}">{{$type->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="location" class="form-label">Location</label>
-                            <input type="text" class="form-control" id="location" name="location"/>
-                        </div>
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" name="description"></textarea>
                         </div>
 
                     </div>
@@ -82,26 +64,6 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" tabindex="-1" id="imagesModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Images</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
-                </div>
-
-                <div class="modal-body">
-                    <input type="file" class="my-pond" name="filepond"/>
-
-                    <div id="imagesResult"></div>
-
-                </div>
-
-
-            </div>
-        </div>
-    </div>
 @endsection
 
 @section('scripts')
@@ -110,49 +72,27 @@
     <!-- Laravel Javascript Validation -->
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.min.js')}}"></script>
 
-    {!! JsValidator::formRequest(\App\Http\Requests\StoreProjectRequest::class) !!}
-    {{--    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>--}}
-
-    <!-- include FilePond library -->
-    <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
-
-    <!-- include FilePond plugins -->
-    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
-
-    <!-- include FilePond jQuery adapter -->
-    <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
+    {!! JsValidator::formRequest(\App\Http\Requests\StoreProjectTypeRequest::class) !!}
 
     <script>
         $(document).ready(function () {
             // First register any plugins
-            $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
-            /*  $.fn.filepond.registerPlugin(FilePondPluginFileValidateSize);
 
-              $.fn.filepond.setDefaults({
-                  maxFileSize: '3MB',
-              });*/
-            // Turn input element into a pond
-            let $my = $('.my-pond');
-            $my.filepond();
-
-            // Set allowMultiple property to true
-            $my.filepond('allowMultiple', true);
-
-            // Listen for addfile event
-            $my.on('FilePond:addfile', function (e) {
-                console.log('file added event', e);
-            });
-
-
-            $('.nav-projects').addClass('active');
-            let dt = $('#kt_datatable_example_1').DataTable({
+            $('.nav-project-types').addClass('active');
+            let dt = $('#dataTable').DataTable({
                 responsive: true,
                 "order": [[0, "desc"]],
-                "ajax": "{{route('admin.projects.index')}}",
+                "ajax": "{{route('admin.project-types.index')}}",
                 "columns": [
+                    {
+                        data: 'created_at', name: 'created_at',
+                        render: function (data) {
+                            // format date without moment.js
+                            let date = new Date(data);
+                            return date.toLocaleDateString();
+                        }
+                    },
                     {data: 'name', name: 'name'},
-                    {data: 'project_type.name', name: 'projectType.name'},
-                    {data: 'location', name: 'location'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ],
                 processing: true,
@@ -213,9 +153,6 @@
                     success: function (response) {
                         $('#id').val(response.id);
                         $('#name').val(response.name);
-                        $('#type').val(response.project_type_id);
-                        $('#location').val(response.location);
-                        $('#description').val(response.description);
                         $('#addModal').modal('show');
                     },
                     error: function (error) {
@@ -232,7 +169,7 @@
                 let href = $(this).attr('href');
                 e.preventDefault();
                 Swal.fire({
-                    title: 'Are you sure you want to delete this project?',
+                    title: 'Are you sure you want to delete this project type?',
                     text: "You won't be able to revert this!",
                     showCancelButton: true,
                     confirmButtonText: `Delete`,
@@ -251,7 +188,7 @@
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Success',
-                                    text: "Project deleted successfully",
+                                    text: "Project type deleted successfully",
                                 });
                             },
                             error: function (error) {
@@ -266,42 +203,6 @@
                 });
             });
 
-            $(document).on('click', '.js-images', function (e) {
-                let href = $(this).attr('href');
-                e.preventDefault();
-                let imageUrl = $(this).data("images-url");
-                $.ajax({
-                    url: href,
-                    method: 'get',
-                    success: function (response) {
-                        $('#imagesResult').html(response);
-                        $('#imagesModal').modal('show');
-                    },
-                    error: function (error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: "Something went wrong!",
-                        });
-                    },
-                });
-
-                FilePond.setOptions({
-                    server: {
-                        url: href,
-                        method: 'POST',
-                        process: {
-                            ondata: (formData) => {
-                                formData.append('_token', "{{csrf_token()}}");
-                                return formData;
-                            }
-                        }
-                    },
-
-                });
-                // $('#imagesModal').modal('show');
-
-            });
         });
 
 

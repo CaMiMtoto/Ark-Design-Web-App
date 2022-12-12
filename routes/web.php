@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InquiriesController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectTypeController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UsersController;
@@ -42,6 +43,13 @@ Route::group(['middleware' => ['auth', EnsureIsActive::class,], 'prefix' => '/ad
     Route::middleware([EnsurePasswordChanged::class])->group(function () {
 
         Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
+
+
+
+        Route::get('/project/types', [ProjectTypeController::class, 'index'])->name('project-types.index');
+        Route::post('/project/types', [ProjectTypeController::class, 'store'])->name('project-types.store');
+        Route::get('/project/types/{projectType}/show', [ProjectTypeController::class, 'show'])->name('project-types.edit');
+        Route::delete('/project/types/{projectType}', [ProjectTypeController::class, 'destroy'])->name('project-types.destroy');
 
         Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
         Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');

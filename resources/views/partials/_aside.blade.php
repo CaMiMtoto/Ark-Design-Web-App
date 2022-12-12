@@ -25,28 +25,29 @@
                  data-kt-scroll-offset="20px">
                 <div class="menu-item mb-1">
                     <a class="menu-link nav-dashboard" href="{{ route('admin.dashboard') }}">
-										<span class="menu-icon">
-											<!--begin::Svg Icon | path: icons/duotone/Layout/Layout-4-blocks.svg-->
-											<span class="svg-icon svg-icon-2">
-												<svg xmlns="http://www.w3.org/2000/svg"
-                                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                                                     height="24px" viewBox="0 0 24 24" version="1.1">
-													<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-														<rect x="0" y="0" width="24" height="24"/>
-														<rect fill="#000000" x="4" y="4" width="7" height="7" rx="1.5"/>
-														<path
-                                                            d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z"
-                                                            fill="#000000" opacity="0.3"/>
-													</g>
-												</svg>
-											</span>
-                                            <!--end::Svg Icon-->
-										</span>
+                    <span class="menu-icon">
+                        <!--begin::Svg Icon | path: icons/duotone/Layout/Layout-4-blocks.svg-->
+                        <span class="svg-icon svg-icon-2">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                 height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"/>
+                                    <rect fill="#000000" x="4" y="4" width="7" height="7" rx="1.5"/>
+                                    <path
+                                        d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z"
+                                        fill="#000000" opacity="0.3"/>
+                                </g>
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </span>
                         <span class="menu-title">Dashboard</span>
                     </a>
                 </div>
-                <div class="menu-item mb-1">
-                    <a class="menu-link nav-projects" href="{{ route('admin.projects.index') }}">
+                @can(\App\Constants\Permissions::MANAGE_PROJECTS)
+                    <div class="menu-item mb-1">
+                        <a class="menu-link nav-projects" href="{{ route('admin.projects.index') }}">
                         <span class="menu-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                  stroke="currentColor"
@@ -56,11 +57,13 @@
                             </svg>
 
                         </span>
-                        <span class="menu-title">Projects</span>
-                    </a>
-                </div>
-                <div class="menu-item mb-1">
-                    <a class="menu-link nav-events" href="{{ route('admin.events.index') }}">
+                            <span class="menu-title">Projects</span>
+                        </a>
+                    </div>
+                @endcan
+                @can(\App\Constants\Permissions::MANAGE_EVENTS)
+                    <div class="menu-item mb-1">
+                        <a class="menu-link nav-events" href="{{ route('admin.events.index') }}">
                         <span class="menu-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                  stroke="currentColor" class="w-6 h-6">
@@ -68,11 +71,13 @@
                                 d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/>
                         </svg>
                         </span>
-                        <span class="menu-title">Events</span>
-                    </a>
-                </div>
-                <div class="menu-item mb-1">
-                    <a class="menu-link nav-teams" href="{{ route('admin.teams.index') }}">
+                            <span class="menu-title">Events</span>
+                        </a>
+                    </div>
+                @endcan
+                @can(\App\Constants\Permissions::MANAGE_TEAM)
+                    <div class="menu-item mb-1">
+                        <a class="menu-link nav-teams" href="{{ route('admin.teams.index') }}">
                         <span class="menu-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                        stroke="currentColor" class="w-6 h-6">
@@ -81,11 +86,13 @@
 </svg>
 
                         </span>
-                        <span class="menu-title">Team</span>
-                    </a>
-                </div>
-                <div class="menu-item mb-1">
-                    <a class="menu-link nav-services" href="{{ route('admin.services.index') }}">
+                            <span class="menu-title">Team</span>
+                        </a>
+                    </div>
+                @endcan
+                @can(\App\Constants\Permissions::MANAGE_SERVICES)
+                    <div class="menu-item mb-1">
+                        <a class="menu-link nav-services" href="{{ route('admin.services.index') }}">
                         <span class="menu-icon">
                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                               stroke="currentColor" class="w-6 h-6">
@@ -94,77 +101,98 @@
 </svg>
 
                         </span>
-                        <span class="menu-title">Services</span>
-                    </a>
-                </div>
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
-									<span class="menu-link">
-										<span class="menu-icon">
-											<!--begin::Svg Icon | path: icons/duotone/Code/Compiling.svg-->
-											<span class="svg-icon svg-icon-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                             viewBox="0 0 24 24" stroke-width="1.5"
-                                                             stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round"
-                d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5"/>
-        </svg>
-
-											</span>
-                                            <!--end::Svg Icon-->
-										</span>
-										<span class="menu-title">Settings</span>
-										<span class="menu-arrow"></span>
-									</span>
-                    <div class="menu-sub menu-sub-accordion">
-                        <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.users.index') }}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Users</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.permissions.index') }}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Permissions</span>
-                            </a>
-                        </div>
-
+                            <span class="menu-title">Services</span>
+                        </a>
                     </div>
-                </div>
+                @endcan
+                @canany([\App\Constants\Permissions::MANAGE_USERS, \App\Constants\Permissions::MANAGE_PROJECT_TYPES, \App\Constants\Permissions::MANAGE_PERMISSIONS])
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotone/Code/Compiling.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                             viewBox="0 0 24 24" stroke-width="1.5"
+                                             stroke="currentColor" class="w-6 h-6">
+<path stroke-linecap="round" stroke-linejoin="round"
+      d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5"/>
+</svg>
+
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title">Settings</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                        <div class="menu-sub menu-sub-accordion">
+                            @can(\App\Constants\Permissions::MANAGE_PROJECT_TYPES)
+                                <div class="menu-item">
+                                    <a class="menu-link" href="{{ route('admin.project-types.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                        <span class="menu-title">Project Types</span>
+                                    </a>
+                                </div>
+                            @endcan
+
+                            @can(\App\Constants\Permissions::MANAGE_USERS)
+                                <div class="menu-item">
+                                    <a class="menu-link" href="{{ route('admin.users.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                        <span class="menu-title">Users</span>
+                                    </a>
+                                </div>
+                            @endcan
+
+                            @can(\App\Constants\Permissions::MANAGE_PERMISSIONS)
+                                <div class="menu-item">
+                                    <a class="menu-link" href="{{ route('admin.permissions.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                        <span class="menu-title">Permissions</span>
+                                    </a>
+                                </div>
+                            @endcan
+
+                        </div>
+                    </div>
+                @endcanany
+
                 <div class="menu-item">
                     <div class="menu-content">
                         <div class="separator mx-1 my-4"></div>
                     </div>
                 </div>
-                <div class="menu-item mb-1">
-                    <a class="menu-link nav-inquiries" href="{{ route('admin.inquiries.index') }}">
-										<span class="menu-icon">
-											<!--begin::Svg Icon | path: icons/duotone/Layout/Layout-arrange.svg-->
-											<span class="svg-icon svg-icon-2">
-												<svg xmlns="http://www.w3.org/2000/svg"
-                                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                                                     height="24px" viewBox="0 0 24 24" version="1.1">
-													<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-														<rect x="0" y="0" width="24" height="24"/>
-														<path
-                                                            d="M5.5,4 L9.5,4 C10.3284271,4 11,4.67157288 11,5.5 L11,6.5 C11,7.32842712 10.3284271,8 9.5,8 L5.5,8 C4.67157288,8 4,7.32842712 4,6.5 L4,5.5 C4,4.67157288 4.67157288,4 5.5,4 Z M14.5,16 L18.5,16 C19.3284271,16 20,16.6715729 20,17.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,17.5 C13,16.6715729 13.6715729,16 14.5,16 Z"
-                                                            fill="#000000"/>
-														<path
-                                                            d="M5.5,10 L9.5,10 C10.3284271,10 11,10.6715729 11,11.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,11.5 C4,10.6715729 4.67157288,10 5.5,10 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,12.5 C20,13.3284271 19.3284271,14 18.5,14 L14.5,14 C13.6715729,14 13,13.3284271 13,12.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z"
-                                                            fill="#000000" opacity="0.3"/>
-													</g>
-												</svg>
-											</span>
-                                            <!--end::Svg Icon-->
-										</span>
-                        <span class="menu-title">Inquiries</span>
-                    </a>
-                </div>
-
+                @can(\App\Constants\Permissions::VIEW_INQUIRIES)
+                    <div class="menu-item mb-1">
+                        <a class="menu-link nav-inquiries" href="{{ route('admin.inquiries.index') }}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotone/Layout/Layout-arrange.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                     height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"/>
+                                        <path
+                                            d="M5.5,4 L9.5,4 C10.3284271,4 11,4.67157288 11,5.5 L11,6.5 C11,7.32842712 10.3284271,8 9.5,8 L5.5,8 C4.67157288,8 4,7.32842712 4,6.5 L4,5.5 C4,4.67157288 4.67157288,4 5.5,4 Z M14.5,16 L18.5,16 C19.3284271,16 20,16.6715729 20,17.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,17.5 C13,16.6715729 13.6715729,16 14.5,16 Z"
+                                            fill="#000000"/>
+                                        <path
+                                            d="M5.5,10 L9.5,10 C10.3284271,10 11,10.6715729 11,11.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,11.5 C4,10.6715729 4.67157288,10 5.5,10 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,12.5 C20,13.3284271 19.3284271,14 18.5,14 L14.5,14 C13.6715729,14 13,13.3284271 13,12.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z"
+                                            fill="#000000" opacity="0.3"/>
+                                    </g>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                            <span class="menu-title">Inquiries</span>
+                        </a>
+                    </div>
+                @endcan
             </div>
         </div>
         <!--end::Menu-->
