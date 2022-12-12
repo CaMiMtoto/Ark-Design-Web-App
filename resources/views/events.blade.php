@@ -17,22 +17,36 @@
 
         <!-- Card Grid -->
         <div class="container content-space-b-2 content-space-b-lg-3">
-            <div class="row justify-content-center align-items-md-center mb-7">
-                @if(request()->has('search'))
-                    <div class="col-md-7">
-                        <div class="d-md-flex align-items-md-center text-center text-md-start">
+            @if(request()->input('search'))
+                <div class="col-md-7">
+                    <div class="d-md-flex align-items-md-center text-center text-md-start">
                        <span class="d-block me-md-3 mb-2 mb-md-1">
                            Showing results for
                        </span>
-                            <a class="btn bg-secondary py-1 btn-xs rounded-pill m-1"
-                               href="javascript:void(0);">{{ request('search') }}</a>
-                            <a class="btn btn-warning py-1 btn-xs rounded-pill m-1" href="{{ route('events') }}">
-                                <i class="bi bi-x"></i>
-                                Clear
-                            </a>
-                        </div>
+                        <a class="btn bg-secondary py-1 btn-xs rounded-pill m-1"
+                           href="javascript:void(0);">{{ request('search') }}</a>
+                        <a class="btn btn-warning py-1 btn-xs rounded-pill m-1" href="{{ route('events') }}">
+                            <i class="bi bi-x"></i>
+                            Clear
+                        </a>
                     </div>
-                @endif
+                </div>
+            @endif
+            <div class="row justify-content-center align-items-md-center mb-7">
+                <div class="col-md-7">
+                    <div class="d-md-flex align-items-md-center text-center text-md-start tw-text-lg">
+                       <span class="d-block me-md-3 mb-2 mb-md-1">
+                          Filter by category
+                       </span>
+                        <a class="btn btn-warning text-dark py-1  rounded-pill m-1"
+                           href="{{ route('events') }}">All</a>
+                        @foreach(\App\Models\Event::types() as $type)
+                            <a class="btn btn-{{ request('type')==$type?'success':'secondary' }} py-1  rounded-pill m-1"
+                               href="{{ route('events',['type'=>$type]) }}">{{ $type }}</a>
+
+                        @endforeach
+                    </div>
+                </div>
 
                 <div class="col-md-5">
                     <form action="{{ route('events') }}">
@@ -57,19 +71,14 @@
                 @forelse($events as $event)
                     <div class="col-sm-6 col-lg-4 mb-4">
                         <!-- Card -->
-                        <div class="card h-100 overflow-hidden">
+                        <div class="card h-100 position-relative">
                             <div class="shape-container">
-                                <img class=" h-250px w-100 tw-object-cover tw-object-top" src="{{ $event->image_url }}"
+                                <img class=" h-250px w-100 rounded-3 tw-object-cover tw-object-top"
+                                     src="{{ $event->image_url }}"
                                      alt="Image Description">
 
-                                <!-- Shape -->
-                                <div class="shape shape-bottom zi-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1920 100.1">
-                                        <path fill="#fff" d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"></path>
-                                    </svg>
-                                </div>
-                                <!-- End Shape -->
                             </div>
+
 
                             <!-- Card Body -->
                             <div class="card-body pt-2">
@@ -82,8 +91,12 @@
                                 <p class="card-text">
                                     {{ $event->location }}
                                 </p>
-                                <p class="card-text text-danger fw-bold">
+                                <p class="card-text text-danger fw-bold d-flex justify-content-between align-items-center">
                                     {{ optional($event->date)->format('d M Y') }}
+                                    <a href="{{ route('events',['type'=>$event->type]) }}">
+                                        <span
+                                            class=" badge rounded-pill bg-{{ $event->typeColor }}">{{ $event->type }}</span>
+                                    </a>
                                 </p>
                                 <p class="card-text text-muted">
                                     {{ $event->organizer }}

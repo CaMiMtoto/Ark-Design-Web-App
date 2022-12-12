@@ -13,7 +13,7 @@
     @yield('styles')
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}">
-  
+
 </head>
 <body class="min-vh-100 d-flex justify-content-between">
 <div>
@@ -29,21 +29,26 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-3">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-3 custom-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold  " href="{{ url('/') }}">Home</a>
+                        <a class="nav-link text-dark fw-bold nav-home text-uppercase h4 border-bottom border-3 border-primary hover:tw-border-secondary"
+                           href="{{ url('/') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold " href="{{ route('about') }}">About Us</a>
+                        <a class="nav-link text-dark fw-bold nav-about text-uppercase h4 border-bottom border-3 border-primary hover:tw-border-secondary"
+                           href="{{ route('about') }}">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold " href="{{ route('projects') }}">Projects</a>
+                        <a class="nav-link text-dark fw-bold nav-projects text-uppercase h4 border-bottom border-3 border-primary hover:tw-border-secondary"
+                           href="{{ route('projects') }}">Projects</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold " href="{{ route('events') }}">Events & News</a>
+                        <a class="nav-link text-dark fw-bold nav-events text-uppercase h4 border-bottom border-3 border-primary hover:tw-border-secondary"
+                           href="{{ route('events') }}">Events & News</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold " href="{{ url('/') }}#contact-us">Contact Us</a>
+                        <a class="nav-link text-dark fw-bold nav-contacts text-uppercase h4 border-bottom border-3 border-primary hover:tw-border-secondary"
+                           href="{{ url('/') }}#contact-us">Contact Us</a>
                     </li>
 
                 </ul>

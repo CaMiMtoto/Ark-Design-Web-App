@@ -30,6 +30,7 @@ class StoreEventRequest extends FormRequest
             'date' => ['required', 'date', 'after_or_equal:today'],
             'organizer' => ['required', 'string', 'max:255'],
             'location' => ['required', 'string', 'max:255'],
+            'type' => ['required', 'in:event,news'],
         ];
     }
 

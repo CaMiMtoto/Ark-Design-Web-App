@@ -38,7 +38,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Event</h5>
+                    <h5 class="modal-title">Event&News</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
                 </div>
@@ -48,9 +48,23 @@
                     @csrf
                     <input type="hidden" id="id" name="id" value="0"/>
                     <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Event Title</label>
-                            <input type="text" class="form-control" id="name" name="name"/>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Title</label>
+                                    <input type="text" class="form-control" id="name" name="name"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="type" class="form-label">Type</label>
+                                    <select class="form-select" id="type" name="type">
+                                        <option value=""></option>
+                                        <option value="event">Event</option>
+                                        <option value="news">News</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">

@@ -20,6 +20,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
+                    <th>Status</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -116,6 +117,7 @@
                     {data: 'name', name: 'name'},
                     {data: 'email', name: 'email'},
                     {data: 'phone', name: 'phone'},
+                    {data: 'active', name: 'action', orderable: false, searchable: false},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ],
                 processing: true,
@@ -281,6 +283,33 @@
                         submitBtn.attr('disabled', false)
                             .html('Save changes');
                     }
+                });
+            });
+
+            $(document).on('click', '.js-change-status', function (e) {
+                e.preventDefault();
+                let href = $(this).attr('href');
+                $.ajax({
+                    url: href,
+                    method: 'POST',
+                    data: {
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function (response) {
+                        dt.ajax.reload();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: "User status changed successfully",
+                        });
+                    },
+                    error: function (error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: "Something went wrong!",
+                        });
+                    },
                 });
             });
 

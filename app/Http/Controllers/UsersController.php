@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ValidateUser;
+use App\Mail\UserCreated;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
 
@@ -21,6 +23,11 @@ class UsersController extends Controller
             ->where('id', '!=', auth()->id());
         if (request()->ajax()) {
             return datatables()->of($data)
+                ->addColumn('active', function (User $row) {
+                    return '<a class="js-change-status" href="' . route("admin.users.active-toggle", $row->id) . '">
+                                <span class="badge bg-' . $row->activeColor . ' rounded-pill">' . $row->active . '</span>
+                            </a>';
+                })
                 ->addColumn('action', function (User $row) {
                     return '<div class="dropdown">
                               <button class="btn btn-light-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -33,7 +40,7 @@ class UsersController extends Controller
                               </ul>
                             </div>';
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action', 'active'])
                 ->make(true);
         }
 
@@ -50,8 +57,11 @@ class UsersController extends Controller
             $user->update($data);
             return response()->json(['success' => 'Data is successfully updated']);
         } else {
-            $data['password'] = bcrypt(Str::random(8));
+            $random = Str::random(8);
+            $data['password'] = bcrypt($random);
             $user = User::query()->create($data);
+            Mail::to($user)->send(new UserCreated($user, $random));
+
             return response()->json(['success' => 'Data is successfully added']);
         }
     }
@@ -85,5 +95,11 @@ class UsersController extends Controller
         $permissions = $request->input('permissions');
         $user->syncPermissions($permissions);
         return response()->json(['success' => 'Permissions are successfully assigned']);
+    }
+
+    public function toggleActive(User $user)
+    {
+        $user->update(['is_active' => !$user->is_active]);
+        return response()->json(['success' => 'User status is successfully updated']);
     }
 }

@@ -78,42 +78,35 @@
                 <div class="col-md-8">
                     <div class="row mt-10">
                         @forelse($projects as $project)
-                            <div class="col-sm-6  mb-4">
+                            <div class="col-sm-6 tw-mb-16">
                                 <!-- Card -->
-                                <div class="card h-100 overflow-hidden">
-                                    <div class="shape-container">
-                                        <img class=" h-250px w-100 tw-object-cover tw-object-top"
-                                             src="{{ $project->image->image_url }}"
-                                             alt="Image Description">
-
-                                        <!-- Shape -->
-                                        <div class="shape shape-bottom zi-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                                                 viewBox="0 0 1920 100.1">
-                                                <path fill="#fff" d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"></path>
-                                            </svg>
-                                        </div>
-                                        <!-- End Shape -->
-                                    </div>
+                                <div
+                                    class="card h-100  position-relative tw-h-96 tw-bg-cover tw-bg-no-repeat tw-bg-center border tw-transition tw-transform hover:-tw-translate-y-1 motion-reduce:tw-transition-none motion-reduce:tw-hover:transform-none"
+                                    style="background-image: url({{ $project->image->image_url }});">
 
                                     <!-- Card Body -->
-                                    <div class="card-body pt-2">
+                                    <div
+                                        class="position-absolute p-4 -tw-bottom-8 bg-dark text-white tw-w-[90%] tw-inset-x-0 tw-mx-auto bg-opacity-75">
                                         <h3 class="card-title">
-                                            <a class="text-dark" href="{{ route('project-details',$project->id) }}"
+                                            <a class="text-white" href="{{ route('project-details',$project->id) }}"
                                                title=" {{ $project->name }}">
                                                 {{ \Illuminate\Support\Str::of($project->name)->limit(50) }}
                                             </a>
                                         </h3>
 
                                         <p class="card-text">
+                                            <i class="bi bi-pin-map"></i>
                                             {{ $project->location }}
                                         </p>
-                                        <p class="card-text text-danger fw-bold">
-                                            {{ optional($project->date)->format('d M Y') }}
+                                        <p class="card-text text-primary fw-bold">
+                                            {{ optional($project->projectType)->name }}
                                         </p>
-                                        <p class="card-text text-muted">
-                                            {{ $project->location }}
-                                        </p>
+
+                                        <div class="position-relative w-100">
+                                            <a href="{{ route('project-details',$project->id) }}" class="btn btn-primary btn-sm rounded-3 position-absolute -tw-bottom-10 text-uppercase">
+                                                View Project
+                                            </a>
+                                        </div>
                                     </div>
                                     <!-- End Card Body -->
 

@@ -55,6 +55,9 @@ class HomeController extends Controller
                     ->orWhere('date', 'LIKE', '%' . request('search') . '%')
                     ->orWhere('organizer', 'LIKE', '%' . request('search') . '%');
             })
+            ->when(request('type'), function ($query) {
+                $query->where('type', '=', request('type'));
+            })
             ->latest()
             ->paginate(10);
         return view('events', [
@@ -65,7 +68,8 @@ class HomeController extends Controller
     public function projects()
     {
         $projects = Project::query()
-            ->with('image')
+            ->with(['image', 'projectType'])
+            ->whereHas('image')
             ->when(request('search'), function ($query) {
                 $query->where('name', 'LIKE', '%' . request('search') . '%')
                     ->orWhere('location', 'LIKE', '%' . request('search') . '%');

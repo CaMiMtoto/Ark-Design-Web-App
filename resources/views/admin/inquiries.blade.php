@@ -10,7 +10,7 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4>Manage Events</h4>
+                <h4>Manage Inquiries</h4>
             </div>
             <div class="table-responsive">
                 <table id="kt_datatable_example_1" class="table table-row-bordered gy-5">

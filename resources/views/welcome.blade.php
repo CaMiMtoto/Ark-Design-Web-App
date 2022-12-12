@@ -18,21 +18,26 @@
                         <div class="container">
                             <div class="row align-items-center justify-content-center text-white">
                                 <div class="col-md-8">
-                                    <h1 class="display-2 text-center fw-light">Architectural service provider.</h1>
-                                    <p class="my-4">We work to mold the dream of the client into real construction
+                                    <h1 class="display-2 text-center fw-light">
+                                        Architectural service
+                                        <br>
+                                        provider.
+                                    </h1>
+                                    <p class="my-5 tw-text-[16.8px] tw-tracking-[3px] text-center">We work to mold the
+                                        dream of the client into real construction
                                         projects
                                         with a flavor of professionalism.</p>
                                     <div class="d-flex justify-content-center align-items-center gap-3">
                                         <a href="#team"
-                                           class="btn text-white border text-uppercase border-4 rounded-pill btn-lg btn-outline-primary">
+                                           class="btn text-white border text-uppercase border-2 rounded-pill btn-lg btn-outline-primary">
                                             Our Team
                                         </a>
                                         <a href="{{ route('projects') }}"
-                                           class="btn text-white border text-uppercase border-4 rounded-pill btn-lg btn-outline-primary">
+                                           class="btn text-white border border-primary hover:tw-border-white text-uppercase border-2 rounded-pill btn-lg tw-bg-primary hover:tw-bg-transparent">
                                             Our Projects
                                         </a>
                                         <a href="#contact-us"
-                                           class="btn text-white border text-uppercase border-4 rounded-pill btn-lg btn-outline-primary">
+                                           class="btn text-white border text-uppercase border-2 rounded-pill btn-lg btn-outline-primary">
                                             Contact us
                                         </a>
                                     </div>
@@ -54,13 +59,14 @@
         <div class="row">
             @foreach($serviceTypes as $item)
                 <div class="col-lg-4 mb-4">
-                    <div class="card h-100  tw-rounded-xl border">
+                    <div
+                        class="card h-100  tw-rounded-xl border tw-transition tw-transform hover:-tw-translate-y-1 motion-reduce:tw-transition-none motion-reduce:tw-hover:transform-none">
                         <div class="card-body py-10 text-center tw-flex tw-justify-start tw-flex-col tw-items-center">
                             <span class="svg-icon svg-icon-3x text-primary mt-10">{!! $item->icon !!} </span>
                             <h2 class="mt-10">{{ $item->name }}</h2>
                             <div class="border-top border-primary border-3 tw-w-20 mb-10"></div>
                             @foreach($item->services as $service)
-                                <p>{{$service->name}}</p>
+                                <dv class="hover:tw-shadow w-100 py-2 hover:tw-text-primary">{{$service->name}}</dv>
                             @endforeach
 
                         </div>
@@ -247,13 +253,16 @@
                             <!-- Accordion Item -->
                             <div class="accordion-item ">
                                 <div class="accordion-header" id="headingOne">
-                                    <a class="accordion-button text-decoration-none tw-text-lg shadow-none collapsed py-2 fw-bold" role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $item->id}}" aria-expanded="false" aria-controls="collapseOne">
+                                    <a class="accordion-button text-decoration-none tw-text-lg shadow-none collapsed py-2 fw-bold"
+                                       role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $item->id}}"
+                                       aria-expanded="false" aria-controls="collapseOne">
                                         Read Bio
                                     </a>
                                 </div>
-                                <div id="collapse{{ $item->id}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionFAQ" style="">
+                                <div id="collapse{{ $item->id}}" class="accordion-collapse collapse"
+                                     aria-labelledby="headingOne" data-bs-parent="#accordionFAQ" style="">
                                     <div class="accordion-body">
-                                    {{ $item->bio }}
+                                        {{ $item->bio }}
                                     </div>
                                 </div>
                             </div>
@@ -351,7 +360,7 @@
 
                         </span>
                             +250 780 430 990 </a>
-                        <p class="text-dark">
+                        <a href="https://api.whatsapp.com/send?phone=0727111133" class="text-dark d-block">
                          <span class="svg-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-whatsapp" viewBox="0 0 16 16">
@@ -360,7 +369,7 @@
 </svg>
                         </span>
                             +250 727 111 133
-                        </p>
+                        </a>
                     </div>
                     <div class="my-10">
                         <h1 class="fw-light mb-3">Send Email</h1>
@@ -392,6 +401,7 @@
     {!! JsValidator::formRequest(\App\Http\Requests\StoreInquiryRequest::class) !!}
 
     <script>
+        $('.nav-home').addClass('active');
         $('.popup-youtube').magnificPopup({
             disableOn: 700,
             type: 'iframe',
@@ -406,7 +416,7 @@
             dots: true,
             infinite: true,
             autoplay: true,
-            arrows:false,
+            arrows: false,
             speed: 300,
             slidesToShow: 4,
             slidesToScroll: 4,
