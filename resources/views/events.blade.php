@@ -110,10 +110,10 @@
                 @empty
                     <div class=" mb-4">
                         <div class="alert alert-info d-flex gap-3 align-items-center">
-                            <h4 class="mb-0 display-6">
-
-                                No events found
-                            </h4>
+                            <h6 class="mb-0 ">
+                                Oops!
+                                Nothing found to show here.
+                            </h6>
                         </div>
                     </div>
                 @endforelse

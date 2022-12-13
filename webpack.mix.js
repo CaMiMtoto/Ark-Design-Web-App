@@ -248,6 +248,7 @@ mix
                 /^multiselect-/,
                 /^custom-/,
                 /^slick-/,
+                /^bg-/,
             ],
         },
     });

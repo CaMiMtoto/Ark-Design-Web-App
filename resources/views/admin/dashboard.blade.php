@@ -10,8 +10,7 @@
         </div>
     @endif
     <div class="row g-5 g-xl-10">
-
-        <div class="col-sm-6 col-xl-4 mb-xl-10">
+        <div class="col-sm-6 col-xl-4  mb-5">
             <!--begin::Card widget 2-->
             <div class="card h-lg-100">
                 <!--begin::Body-->
@@ -51,8 +50,7 @@
             </div>
             <!--end::Card widget 2-->
         </div>
-
-        <div class="col-sm-6 col-xl-4 mb-xl-10">
+        <div class="col-sm-6 col-xl-4  mb-5">
             <!--begin::Card widget 2-->
             <div class="card h-lg-100">
                 <!--begin::Body-->
@@ -94,7 +92,7 @@
             </div>
             <!--end::Card widget 2-->
         </div>
-        <div class="col-sm-6 col-xl-4 mb-xl-10">
+        <div class="col-sm-6 col-xl-4  mb-5">
             <!--begin::Card widget 2-->
             <div class="card h-lg-100">
                 <!--begin::Body-->
@@ -137,6 +135,158 @@
             </div>
             <!--end::Card widget 2-->
         </div>
-
     </div>
+
+    <div class="row g-5 mt-3 mt-md-0 g-xl-10">
+        <div class="col-lg-8 mb-5">
+            <div class="card card-body h-lg-100 rounded-4">
+                <div class="d-flex flex-column flex-md-row justify-content-between">
+                    <h5 class="text-primary fw-semibold">
+                        Projects in current year
+                    </h5>
+                </div>
+
+                <div>
+                    <canvas id="myChart"></canvas>
+                </div>
+
+                <h6 class="text-primary">Year ({{ now()->year }})</h6>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-5">
+            <div class="card card-body h-lg-100 rounded-4">
+                <div class="d-flex flex-column flex-md-row justify-content-between">
+                    <h5 class="text-primary fw-semibold">
+                        Projects by project types
+                    </h5>
+
+                </div>
+
+                <div>
+                    <canvas id="pieChart"></canvas>
+                </div>
+                <h6 class="text-primary">Year ({{ now()->year }})</h6>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let chartData = {!! $projects !!};
+        let pieChartData = {!! $projectsByTypes !!};
+
+        console.log(pieChartData)
+
+
+        function randomIntFromInterval(min, max) {
+            // min and max included
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+
+        Chart.defaults.backgroundColor = '#F28E22';
+        Chart.defaults.borderColor = '#f4f0ec';
+        Chart.defaults.color = '#000';
+
+        let buildChart = function () {
+            const ctx = document.getElementById("myChart");
+
+            const labels = chartData.map((item) => item.month);
+
+            const data = {
+                labels,
+                datasets: [
+                    {
+                        label: "Projects",
+                        data: chartData.map((item) => item.count),
+                        backgroundColor: "#F28E22",
+                        borderWidth: 0,
+                        borderColor: "red",
+                        borderRadius: 20,
+                        minBarLength: 1,
+                        maxBarThickness: 10,
+                    },
+                    /*  {
+                          label: "Debit",
+                          data: labels.map(() => randomIntFromInterval(0, 500)),
+                          backgroundColor: "#179AA9",
+                          borderWidth: 0,
+                          borderRadius: 20,
+                          maxBarThickness: 8,
+                      },*/
+                ],
+            };
+
+            new Chart(ctx, {
+                type: "bar",
+                data: data,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: "bottom",
+                        },
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                color: "white",
+                                borderColor: "white", // <-- this line is answer to initial question
+                            },
+                            ticks: {
+                                color: "#243D94",
+                            },
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: "#243D94",
+                                font: {
+                                    size: 14, // 'size' now within object 'font {}'
+                                },
+                                callback: function (value) {
+                                    return value
+                                },
+                            },
+                        },
+                    },
+                },
+            });
+        };
+
+        let buildPieChart = function () {
+            const data = {
+                labels: pieChartData.map((item) => item.name),
+                datasets: [{
+                    label: 'Projects',
+                    data: pieChartData.map((item) => item.value),
+                    /*  backgroundColor: [
+                          'rgb(255, 99, 132)',
+                          'rgb(54, 162, 235)',
+                          'rgb(255, 205, 86)'
+                      ],*/
+                    hoverOffset: 30
+                }]
+            };
+            const config = {
+                type: 'pie',
+                data: data,
+            };
+            const ctx = document.getElementById("pieChart");
+            new Chart(ctx, config);
+        };
+
+        (function () {
+
+            buildChart();
+            buildPieChart();
+
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        })();
+
+    </script>
+
 @endsection

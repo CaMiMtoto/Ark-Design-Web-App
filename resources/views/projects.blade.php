@@ -117,8 +117,7 @@
                             <div class="col">
                                 <div class=" mb-4">
                                     <div class="alert alert-info d-flex gap-3 align-items-center">
-                                        <h4 class="mb-0 display-6">
-                                            No projects found
+                                        <h4 class="mb-0 "> Oops! No projects found
                                         </h4>
                                     </div>
                                 </div>
