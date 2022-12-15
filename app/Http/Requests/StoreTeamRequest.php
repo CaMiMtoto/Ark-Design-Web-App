@@ -27,11 +27,11 @@ class StoreTeamRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'position' => ['required', 'string', 'max:255'],
             'image' => ['required_if:id,0', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
-          /*  'facebook' => ['nullable', 'string', 'max:255', 'url', 'starts_with:https://www.facebook.com/'],
-            'twitter' => ['nullable', 'string', 'max:255', 'url', 'starts_with:https://twitter.com/'],
-            'instagram' => ['nullable', 'string', 'max:255', 'url', 'starts_with:https://www.instagram.com/'],
-            'linkedin' => ['nullable', 'string', 'max:255', 'url', 'starts_with:https://www.linkedin.com/'],*/
-            'bio' => ['required', 'string', 'max:255'],
+            /*  'facebook' => ['nullable', 'string', 'max:255', 'url', 'starts_with:https://www.facebook.com/'],
+              'twitter' => ['nullable', 'string', 'max:255', 'url', 'starts_with:https://twitter.com/'],
+              'instagram' => ['nullable', 'string', 'max:255', 'url', 'starts_with:https://www.instagram.com/'],
+              'linkedin' => ['nullable', 'string', 'max:255', 'url', 'starts_with:https://www.linkedin.com/'],*/
+            'bio' => ['required', 'string', 'max:5000'],
             'status' => ['required', 'string']
         ];
     }

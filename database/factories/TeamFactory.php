@@ -11,10 +11,18 @@ class TeamFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->name,
+            'position' => $this->faker->jobTitle,
+            'image' => $this->faker->imageUrl(),
+            'status' => $this->faker->randomElement(['active', 'inactive']),
+            'bio' => $this->faker->paragraph,
+            'facebook' => $this->faker->url,
+            'twitter' => $this->faker->url,
+            'instagram' => $this->faker->url,
+            'linkedin' => $this->faker->url,
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ProjectType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProjectFactory extends Factory
@@ -11,10 +12,13 @@ class ProjectFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->name,
+            'description' => $this->faker->paragraph,
+            'location' => $this->faker->city,
+            'project_type_id' => ProjectType::factory()->create()->id,
         ];
     }
 }

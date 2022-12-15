@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ServiceType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ServiceFactory extends Factory
@@ -11,10 +12,11 @@ class ServiceFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->name,
+            'service_type_id' => ServiceType::factory()->create()->id,
         ];
     }
 }

@@ -50,6 +50,20 @@
                         <a class="nav-link text-dark fw-bold nav-contacts text-uppercase h4 border-bottom border-3 border-primary hover:tw-border-secondary"
                            href="{{ url('/') }}#contact-us">Contact Us</a>
                     </li>
+                    @guest()
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-bold nav-contacts text-uppercase h4 border-bottom border-3 border-primary hover:tw-border-secondary"
+                               href="{{ url('/login') }}">Login</a>
+                        </li>
+                    @endguest
+                    @auth()
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-bold nav-contacts text-uppercase h4 border-bottom border-3 border-primary hover:tw-border-secondary"
+                               href="{{ route('admin.dashboard') }}">
+                                Dashboard
+                            </a>
+                        </li>
+                    @endauth
 
                 </ul>
 
@@ -69,24 +83,70 @@
             Ark Design| All Rights Reserved
         </p>
         <div class="d-flex gap-5 align-items-center justify-content-center">
-            <a href="" class="center">
-                <i class="bi bi-facebook fs-1"></i>
+            <a href="" class="center ">
+                <i class="bi hover:tw-text-primary bi-facebook fs-1"></i>
             </a>
-            <a href="" class="center">
-                <i class="bi bi-youtube fs-1"></i>
+            <a href="" class="center ">
+                <i class="bi hover:tw-text-primary bi-youtube fs-1"></i>
             </a>
-            <a href="" class="center">
-                <i class="bi bi-instagram fs-1"></i>
+            <a href="" class="center ">
+                <i class="bi hover:tw-text-primary bi-instagram fs-1"></i>
             </a>
-            <a href="" class="center">
-                <i class="bi bi-twitter fs-1"></i>
+            <a href="" class="center ">
+                <i class="bi hover:tw-text-primary bi-twitter fs-1"></i>
             </a>
         </div>
     </div>
 </footer>
 <!--end footer-->
+
+{{--back to top--}}
+<div class="back-to-top position-fixed tw-bottom-6 tw-right-6 text-primary cursor-pointer">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+         class="tw-w-10 tw-h-10">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15 11.25l-3-3m0 0l-3 3m3-3v7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+    </svg>
+
+</div>
+{{--end back to top--}}
+
+
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 @yield('scripts')
+
+<script>
+    $(document).ready(function () {
+        //back to top
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 100) {
+                $('.back-to-top').fadeIn();
+            } else {
+                $('.back-to-top').fadeOut();
+            }
+        });
+        $('.back-to-top').click(function () {
+            $('html, body').animate({scrollTop: 0}, 800);
+            return false;
+        });
+        //end back to top
+
+        //active nav
+        let url = window.location.href;
+        if (url.includes('about')) {
+            $('.nav-about').addClass('active');
+        } else if (url.includes('projects')) {
+            $('.nav-projects').addClass('active');
+        } else if (url.includes('events')) {
+            $('.nav-events').addClass('active');
+        } else if (url.includes('contact')) {
+            $('.nav-contacts').addClass('active');
+        } else {
+            $('.nav-home').addClass('active');
+        }
+        //end active nav
+    });
+</script>
 </body>
 </html>

@@ -27,17 +27,17 @@
                                         dream of the client into real construction
                                         projects
                                         with a flavor of professionalism.</p>
-                                    <div class="d-flex justify-content-center align-items-center gap-3">
+                                    <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
                                         <a href="#team"
-                                           class="btn text-white border text-uppercase border-2 rounded-pill btn-lg btn-outline-primary">
+                                           class="btn w-100 w-md-auto text-white border text-uppercase border-2 rounded-pill btn-lg btn-outline-primary">
                                             Our Team
                                         </a>
                                         <a href="{{ route('projects') }}"
-                                           class="btn text-white border border-primary hover:tw-border-white text-uppercase border-2 rounded-pill btn-lg tw-bg-primary hover:tw-bg-transparent">
+                                           class="btn w-100 w-md-auto text-white border border-primary hover:tw-border-white text-uppercase border-2 rounded-pill btn-lg tw-bg-primary hover:tw-bg-transparent">
                                             Our Projects
                                         </a>
                                         <a href="#contact-us"
-                                           class="btn text-white border text-uppercase border-2 rounded-pill btn-lg btn-outline-primary">
+                                           class="btn w-100 w-md-auto text-white border text-uppercase border-2 rounded-pill btn-lg btn-outline-primary">
                                             Contact us
                                         </a>
                                     </div>
@@ -50,7 +50,7 @@
 
         </div>
     </div>
-    <div class="container mt-10">
+    <div class="container mt-20">
 
         <div class="tw-flex tw-justify-center tw-items-center tw-flex-col my-10">
             <h4 class="display-6 text-center">Our Services</h4>
@@ -85,7 +85,7 @@
                     <img src="https://inyubako.com/assets/project-6/Image10a.jpg"
                          class="img-fluid h-100 tw-object-cover tw-rounded-lg" alt="">
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-8 mt-10 mt-lg-0">
                     <div class="title">
                         <h2>Events & News</h2>
                         <p class="text">
@@ -105,7 +105,7 @@
                             </svg>
 
                         </span>
-                        <div>
+                        <div class="ms-3">
                             <h3>Simple</h3>
                             <p>Less is more! A cost-effective project calls for simplicity.</p>
                         </div>
@@ -122,7 +122,7 @@
                             </svg>
 
                         </span>
-                        <div>
+                        <div class="ms-3">
                             <h3>Beautiful</h3>
                             <p>Simply Designed, functional spaces can be beautiful;</p>
                         </div>
@@ -139,7 +139,7 @@
                             </svg>
 
                         </span>
-                        <div>
+                        <div class="ms-3">
                             <h3>Functional</h3>
                             <p>Simplicity, beauty and functionality can be in a package for your construction
                                 project.</p>
@@ -245,30 +245,11 @@
                         </div>
                     </div>
                     <div class="text-center p-3">
-                        <h3 class="fw-normal">{{ $item->name }}</h3>
+                        <a href="javascript:void(0);" class="fw-normal h3 text-decoration-none d-block text-dark js-bio"
+                           data-bio="{{ $item->bio }}">{{ $item->name }}</a>
                         <span class="text-muted fw-light">{{ $item->position }}</span>
                     </div>
-                    @if($item->bio)
-                        <div class="accordion rounded-3" id="accordionFAQ">
-                            <!-- Accordion Item -->
-                            <div class="accordion-item ">
-                                <div class="accordion-header" id="headingOne">
-                                    <a class="accordion-button text-decoration-none tw-text-lg shadow-none collapsed py-2 fw-bold"
-                                       role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $item->id}}"
-                                       aria-expanded="false" aria-controls="collapseOne">
-                                        Read Bio
-                                    </a>
-                                </div>
-                                <div id="collapse{{ $item->id}}" class="accordion-collapse collapse"
-                                     aria-labelledby="headingOne" data-bs-parent="#accordionFAQ" style="">
-                                    <div class="accordion-body">
-                                        {{ $item->bio }}
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Accordion Item -->
-                        </div>
-                    @endif
+
                 </div>
 
             @endforeach
@@ -390,6 +371,26 @@
     </section>
     <!--end of contact section-->
 
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="bioModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                        Member Bio
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 @endsection
 @section('scripts')
     <!--JQuery-->
@@ -401,7 +402,7 @@
     {!! JsValidator::formRequest(\App\Http\Requests\StoreInquiryRequest::class) !!}
 
     <script>
-        $('.nav-home').addClass('active');
+        // $('.nav-home').addClass('active');
         $('.popup-youtube').magnificPopup({
             disableOn: 700,
             type: 'iframe',
@@ -531,6 +532,15 @@
                     }, 5000);
                 }
             });
+        });
+
+        $('.js-bio').on('click', function (e) {
+            e.preventDefault();
+            let $modal = $('#bioModal');
+            let $modalBody = $modal.find('.modal-body');
+            let $this = $(this);
+            $modalBody.html($this.data('bio'));
+            $modal.modal('show');
         });
     </script>
 @endsection

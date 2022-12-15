@@ -54,8 +54,7 @@
                         <div class="input-group">
                             <input type="text" value="{{ request('search') }}" name="search"
                                    class="form-control tw-rounded-l-xl"
-                                   placeholder="Search articles"
-                                   aria-label="Search events">
+                                   placeholder="Search ..">
                             <button type="submit" class="btn btn-warning  tw-rounded-r-xl"><i class="bi-search"></i>
                             </button>
                         </div>
